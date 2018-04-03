@@ -16,7 +16,7 @@ import (
 // Finished = is the program ready to exit?
 type BrainfuckProgram struct {
 	Instructions []Token
-	Tape         []int
+	Tape         []byte
 	DP           int
 	PC           int
 	Finished     bool
@@ -73,7 +73,7 @@ func main() {
 // CreateBrainfuckProgram takes an input string and returns a set up BrainfuckProgram
 func CreateBrainfuckProgram(input string) BrainfuckProgram {
 	bf := BrainfuckProgram{
-		Tape:     make([]int, 64000),
+		Tape:     make([]byte, 64000),
 		DP:       0,
 		PC:       0,
 		Finished: false,
@@ -127,7 +127,7 @@ func (bf *BrainfuckProgram) Evaluate() {
 	case READ:
 		reader := bufio.NewReader(os.Stdin)
 		char, _, _ := reader.ReadRune()
-		bf.Tape[bf.DP] = int(char)
+		bf.Tape[bf.DP] = byte(char)
 	case LOOPL:
 		bf.openLoop()
 	case LOOPR:
